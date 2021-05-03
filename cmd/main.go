@@ -52,14 +52,14 @@ func main() {
 	ctx := context.Background()
 
 	// Create the service
-	dataManager, err := dal.NewDBManagerSQL(env.ConnectionString, logger)
+	dataManager, err := dal.CreateDBManager(env.ConnectionString, logger, env.DBType)
 
 	if err != nil {
 		level.Error(logger).Log("exit", err)
 		os.Exit(-1)
 	}
 
-	service := dungeonFetcher.NewService(logger, &dataManager)
+	service := dungeonFetcher.NewService(logger, dataManager)
 
 	// Make the endpoints
 	endpoints := dungeonFetcher.MakeEndpoints(&service)
