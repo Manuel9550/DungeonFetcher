@@ -6,8 +6,8 @@ import (
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
 
-	"github.com/Manuel9550/DungeonFetch/pkg/entities"
 	"github.com/Manuel9550/DungeonFetcher/pkg/dal"
+	"github.com/Manuel9550/DungeonFetcher/pkg/entities"
 )
 
 type Service interface {
@@ -34,7 +34,12 @@ func (d *DungeonFetcher) CreateItem(ctx context.Context, name string, minLevel i
 	logger := log.With(d.logger, "method", "CreateItem")
 
 	// Create item
-	newItem := entities.CreateItem(name, minLevel, maxLevel, consumable)
+	newItem, err := entities.CreateItem(name, minLevel, maxLevel, consumable)
+
+	if err != nil {
+		level.Error(logger).Log("err", err)
+		return "", "", err
+	}
 
 	// Add item into database
 	if err := d.databaseManager.CreateItem(ctx, newItem); err != nil {

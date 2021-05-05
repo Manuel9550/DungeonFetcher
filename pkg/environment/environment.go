@@ -11,11 +11,18 @@ import (
 type EnvironmentSettings struct {
 	ConnectionString string
 	DBType           string
+	Address          string
 }
 
 func GetEnvironmentVariables(logger log.Logger) (EnvironmentSettings, bool) {
 
 	env := EnvironmentSettings{}
+
+	addr, ok := os.LookupEnv("DUNGEON_FETCHER_ADDR")
+	if !ok {
+		level.Error(logger).Log("missing_environment_variable", "DUNGEON_FETCHER_ADDR")
+		return env, ok
+	}
 
 	connectionString, ok := os.LookupEnv("DUNGEON_FETCHER_CONNECTION_STRING")
 	if !ok {
@@ -37,6 +44,7 @@ func GetEnvironmentVariables(logger log.Logger) (EnvironmentSettings, bool) {
 
 	env.ConnectionString = connectionString
 	env.DBType = DBTypeString
+	env.Address = addr
 
 	return env, true
 }

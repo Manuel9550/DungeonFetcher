@@ -5,7 +5,7 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/Manuel9550/DungeonFetch/pkg/entities"
+	"github.com/Manuel9550/DungeonFetcher/pkg/entities"
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
 )

@@ -67,7 +67,7 @@ func main() {
 	// Run server in a goroutine so that it doesn't block
 	go func() {
 		handler := dungeonFetcher.NewHTTPServer(ctx, endpoints, logger)
-		http.ListenAndServe("localhost:8080", handler)
+		http.ListenAndServe(env.Address, handler)
 	}()
 
 	level.Info(logger).Log("msg", "DungeonFetcher service started")

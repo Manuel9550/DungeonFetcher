@@ -7,7 +7,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/Manuel9550/DungeonFetch/pkg/entities"
+	"github.com/Manuel9550/DungeonFetcher/pkg/entities"
 	"github.com/go-kit/kit/log"
 
 	"regexp"
